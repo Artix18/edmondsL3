@@ -22,12 +22,13 @@ void push_back(Vecteur* vect, int val);
 int get(Vecteur *vect, int index);
 void set(Vecteur* vect, int index, int val);
 int size(Vecteur *vect);
+void affiche_vecteur(Vecteur *vect);
 
 //Représentation d'une arête. A noter qu'on aurait aussi pu recoder un "vector" et garder uniquement la destination, mais que cela aurait aussi necessiter de stocker l'indice de l'arête "inverse" lorsque l'on veut changer le type, ou juste un propre à l'arête.
 typedef struct
 {
 	int a, b; //les deux extrémités 
-	int type;
+	int type; //0 banal, 1 couplage
 
 	/*Arc()
 	{
@@ -46,7 +47,7 @@ typedef struct
 	//int **listeAdj;
 } Graph;
 
-void diff_symetrique(Graph *);
+Vecteur diff_symetrique(Graph *, int);
 
 #endif
 

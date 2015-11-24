@@ -50,3 +50,15 @@ int size(Vecteur *vect)
 {
 	return vect->taille;
 }
+
+void affiche_vecteur(Vecteur *vect)
+{
+	int i;
+	if(vect->taille==0)
+		return;
+	printf("%d", vect->tab[0]);
+	for(i = 1; i < vect->taille; i++)
+		printf(" %d", vect->tab[i]);
+	putchar('\n');
+}
+
