@@ -10,7 +10,8 @@ int main()
 	scanf("%d", &nbAretes);
 	
 	//Déclaration du graphe
-	Graph *graph = (Graph*)malloc(sizeof(Graph));
+	Graph *graph = nouveauGraphe(nbNoeuds, nbAretes);
+	/*Graph *graph = (Graph*)malloc(sizeof(Graph));
 	graph->nbNoeuds = nbNoeuds;
 	graph->nbAretes = nbAretes;
 	graph->idAretePrise = (int*)malloc(nbNoeuds * sizeof(int));
@@ -19,7 +20,7 @@ int main()
 	init(graph->listeAdj,0);
 	
 	for(i = 0; i < nbNoeuds; i++)
-		graph->idAretePrise[i]=-1;
+		graph->idAretePrise[i]=-1;*/
 	
 	printf("Liste des arêtes :\n");
 	for(i = 0; i < nbAretes; i++)
@@ -47,6 +48,10 @@ int main()
 
 		case 1:
 			couplageMaximumBiparti(graph, 1);
+		break;
+
+		case 2:
+			//TODO: tester la question 3 ici
 		break;
 
 		default:;

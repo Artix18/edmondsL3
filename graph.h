@@ -52,9 +52,13 @@ typedef struct
 	//int **listeAdj;
 } Graph;
 
+Graph *nouveauGraphe(int nbNoeuds, int nbAretes);
+Graph *recopieGraphe(Graph* g);
+
 Vecteur diff_symetrique(Graph *, int);
 Vecteur diff_symetrique2(Graph *graph, Vecteur *augm);
 Vecteur couplageMaximumBiparti(Graph *graph, int affiche);
+Graph* contracte(Graph* graph, Vecteur aContracter);
 
 #endif
 
