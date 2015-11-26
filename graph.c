@@ -62,3 +62,10 @@ void affiche_vecteur(Vecteur *vect)
 	putchar('\n');
 }
 
+int getAutreNoeud(Arc arc, int noeud)
+{
+	if(arc.a==noeud)
+		return arc.b;
+	return arc.a;
+}
+

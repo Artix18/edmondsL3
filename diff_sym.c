@@ -38,3 +38,20 @@ Vecteur diff_symetrique(Graph *graph, int affiche)
 	return solution;
 }
 
+Vecteur diff_symetrique2(Graph *graph, Vecteur *augm)
+{
+	int i;
+	Vecteur solution;
+	int nbAretesChemin = size(augm);
+	init(&solution, 0);
+
+	for(i = 0; i < nbAretesChemin; i++)
+	{
+		int id = get(augm, i);
+		if(graph->aretes[id].type == 0)
+			push_back(&solution, id);
+	}
+
+	return solution;
+}
+

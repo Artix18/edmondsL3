@@ -8,6 +8,7 @@
 #include <assert.h>
 
 #define SZ_DEFAULT 5;
+#define MAX_NB_NOEUDS 1000
 
 //Bon on va quand même implémenter un vecteur
 typedef struct
@@ -39,15 +40,21 @@ typedef struct
 	}*/
 } Arc;
 
+int getAutreNoeud(Arc arc, int noeud);
+
 typedef struct
 {
 	int nbNoeuds,nbAretes;
+	int *idAretePrise; //idAretePrise[noeud] = -1 si pas affecté, et l'id de l'arete sinon
 	Arc *aretes;
+	//int **adjMatrix; //on pourrait peut-être utiliser une matrice d'adj plutot...
 	Vecteur *listeAdj;
 	//int **listeAdj;
 } Graph;
 
 Vecteur diff_symetrique(Graph *, int);
+Vecteur diff_symetrique2(Graph *graph, Vecteur *augm);
+Vecteur couplageMaximumBiparti(Graph *graph, int affiche);
 
 #endif
 
