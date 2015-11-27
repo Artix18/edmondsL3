@@ -34,4 +34,3 @@ Graph* contracte(Graph* graph, Vecteur aContracter)
 	
 	return gRes;
 }
-
