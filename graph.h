@@ -44,6 +44,14 @@ int getAutreNoeud(Arc arc, int noeud);
 
 typedef struct
 {
+	char estMarque;
+	int sommetDepartLibre;
+	char parite;
+	int precedent;
+} Mark;
+
+typedef struct
+{
 	int nbNoeuds,nbAretes;
 	int *idAretePrise; //idAretePrise[noeud] = -1 si pas affecté, et l'id de l'arete sinon
 	Arc *aretes;
@@ -59,6 +67,7 @@ Vecteur diff_symetrique(Graph *, int);
 Vecteur diff_symetrique2(Graph *graph, Vecteur *augm);
 Vecteur couplageMaximumBiparti(Graph *graph, int affiche);
 Graph* contracte(Graph* graph, Vecteur aContracter, int affiche);
+Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte, int depart);
 
 #endif
 

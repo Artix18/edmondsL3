@@ -4,9 +4,10 @@ int main()
 {
 	int i;
 	int nbNoeuds, nbAretes, type;
-	printf("Nombre de noeuds ?\n");
+	int idAr=0;
+	printf("Quelle question résoudre ?\n");
+	scanf("%d", &type);
 	scanf("%d", &nbNoeuds);
-	printf("Nombre d'arêtes ?\n");
 	scanf("%d", &nbAretes);
 	
 	//Déclaration du graphe
@@ -22,23 +23,28 @@ int main()
 	for(i = 0; i < nbNoeuds; i++)
 		graph->idAretePrise[i]=-1;*/
 	
-	printf("Liste des arêtes :\n");
-	for(i = 0; i < nbAretes; i++)
+	for(i = 0; i < nbNoeuds; i++)
 	{
-		int a,b;
+		int nbAr;
+		int j;
+		scanf("%d", &nbAr);
 		
-		scanf("%d%d", &a,&b);
-		
-		graph->aretes[i].a=a;
-		graph->aretes[i].b=b;
-		graph->aretes[i].type=0;
-		
-		push_back(&graph->listeAdj[a],i);
-		push_back(&graph->listeAdj[b],i);
+		for(j = 0; j < nbAr; j++)
+		{
+			int b;
+			scanf("%d", &b);
+			
+			if(b < i)
+				continue;
+			
+			graph->aretes[idAr].a=i;
+			graph->aretes[idAr].b=b;
+			graph->aretes[idAr].type=0;
+
+			push_back(&graph->listeAdj[i],idAr);
+			push_back(&graph->listeAdj[b],idAr++);
+		}
 	}
-	
-	printf("Quelle question résoudre ?\n");
-	scanf("%d", &type);
 
 	switch(type)
 	{

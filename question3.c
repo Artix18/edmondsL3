@@ -22,13 +22,13 @@ Graph* contracte(Graph* graph, Vecteur aContracter, int affiche)
 				arete->a=repres;
 			if(arete->b==noeud)
 				arete->b=repres;
-			if(arete->a==repres && arete->b==repres)
+			/*if(arete->a==repres && arete->b==repres)
 			{
 				sz--;
 				swap(&gRes->listeAdj[noeud], j, sz);
 				pop_back(&gRes->listeAdj[noeud]);
 				j--;
-			}
+			}*/
 		}
 	}
 
@@ -39,13 +39,14 @@ Graph* contracte(Graph* graph, Vecteur aContracter, int affiche)
 		printf("Graphe contracté :\n");
 		printf("%d %d\n", gRes->nbNoeuds, gRes->nbAretes);
 		
-		for (noeud=0; noeud<nbNoeuds; ; noeuds++)
+		for (noeud=0; noeud < gRes->nbNoeuds; noeud++)
 		{
 			int sz = size(&(gRes->listeAdj[noeud]));
-			Arc arete = get(&gRes->listeAdj[noeud], 0);
+			int idArete = get(&gRes->listeAdj[noeud], 0);
+			Arc arete = gRes->aretes[idArete];
 			if(sz == 0 || (arete.a != noeud && arete.b != noeud))
 				continue;
-			printf("noeud %d :\n");
+			printf("noeud %d :\n", noeud);
 			printf("%d ", sz);
 			affiche_vecteur(&(gRes->listeAdj[noeud]));
 		}

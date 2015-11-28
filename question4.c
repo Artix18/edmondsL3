@@ -5,14 +5,125 @@
 //2) La description des chemins que j'ai choisie utilise des id d'aretes, ce qui n'existe plus dans leur représentation, et 
 //   n'est pas pratique pour le sens.
 
-Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte)
+int getLast(Graph *graph, Vecteur chemin, int depart)
 {
-	Graph *gContra = contracte(graph, corolle);
+	int i;
+	int final=depart;
+	for(i = 0; i < size(&chemin); i++)
+	{
+		final = getAutreNoeud(graph->aretes[get(&chemin, i)], final);
+	}
+	return final;
+}
+
+int donneCetteArete(Graph *graph, int a, int b)
+{
+	int i;
+	for(i = 0; i < size(&graph->listeAdj[a]); i++)
+	{
+		int idArete = get(&graph->listeAdj[a], i);
+		Arc arete = graph->aretes[idArete];
+		int autre = getAutreNoeud(arete, a);
+		if(autre==b)
+			return idArete;
+	}
+	
+	return -1;
+}
+
+void relieDansCorolle(Graph *graph, Vecteur corolle, int dep, int fin, char flag, Vecteur* res) //on sq fin=corolle[0]
+{
+	int i,next,posD;
+	if(dep==fin)
+		return;
+	
+	for(i = 0; i < size(&corolle); i++)
+	{
+		if(get(&corolle, i) == dep)
+		{
+			posD = i;
+			break;
+		}
+	}
+	
+	if(posD % 2 == flag) //on continue vers i>posD
+	{
+		int curPos=posD;
+		for(next=curPos+1; curPos < size(&corolle); curPos++)
+		{
+			push_back(res, donneCetteArete(graph, get(&corolle, curPos), get(&corolle, next)));
+			curPos=next;
+		}
+		push_back(res, donneCetteArete(graph, get(&corolle, curPos), get(&corolle, 0))); //conclut le cycle
+	}
+	else
+	{
+		int curPos=posD;
+		for(next = posD-1; next>=0;next--)
+		{
+			push_back(res, donneCetteArete(graph, get(&corolle, curPos), get(&corolle, next)));
+			curPos=next;
+		}
+	}
+}
+
+//je viens de penser au fait qu'il peut y avoir un bug si la fusion est mal faite : 
+//il peut y avoir plusieur arêtes entre deux corolles, et donc entre deux noeuds dans le graphe réduit. Ca a l'air normal mais pas sur.
+//Si c'est normal => liste d'adjacences youpi. Sinon plus simple avec mat d'adj.
+Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte, int depart) //on suppose que corolle est donné sous forme de cycle
+{
+	int i;
+	
+	Graph *gContra = contracte(graph, corolle,0);
+	Vecteur res;
+	init(&res, 0);
 	int repres = get(&corolle, 0);
 	int idArete = get(&cheminAugmContracte, 0);
 	Arc arete = graph->aretes[idArete];
+	int vk = get(&corolle, 0);//trouveBaseCorolle(corolle); //on peut supposer que vk=corolle[0]
 
-	if(arete.a == repres || graph->aretes[get(&CheminAugmContracte, size(&cheminAugmContracte)-1)].b==repres) //ou b, mais hum.
+	int last = depart;//getLast(graph, cheminAugmContracte, depart);
+	
+	if(depart==repres)
+	{
+		int nxt = getAutreNoeud(gContra->aretes[get(&cheminAugmContracte, i)], depart);
+		int idAr = get(&cheminAugmContracte, 0);
+		int y = getAutreNoeud(gContra->aretes[idAr], nxt);
+		int c = getAutreNoeud(graph->aretes[idAr], y);
+
+		relieDansCorolle(graph, corolle, c, vk, 0, &res);
+		push_back(&res, idAr);
+		last=nxt;
+	}
+
+	for(i = (depart==repres); i < size(&cheminAugmContracte); i++)
+	{
+		int nxt = getAutreNoeud(gContra->aretes[get(&cheminAugmContracte, i)], last);
+		push_back(&res, get(&cheminAugmContracte, i));
+		if(nxt==repres)
+		{
+			int pleine = i%2;
+			int x = last;
+			int areteIncidenteCorolle = get(&cheminAugmContracte, i);
+			int c = getAutreNoeud(graph->aretes[areteIncidenteCorolle], x);
+
+			relieDansCorolle(graph, corolle, c, vk, 1-pleine, &res);
+
+			if(i+1<size(&cheminAugmContracte))
+			{
+				int idAr2 = get(&cheminAugmContracte, i+1);
+				int y = getAutreNoeud(gContra->aretes[idAr2], nxt);
+				c = getAutreNoeud(graph->aretes[idAr2], y);
+
+				relieDansCorolle(graph, corolle, c, vk, pleine, &res);
+				push_back(&res, idAr2);
+				i++;
+			}
+		}
+		last=nxt;
+	}
+
+	/*if(arete.a == repres || graph->aretes[get(&CheminAugmContracte, size(&cheminAugmContracte)-1)].b==repres) //ou b, mais hum.
 	{
 		//extremité, il suffit donc de tracer le chemin jusqu'à la base.
 	}
@@ -24,5 +135,6 @@ Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte
 	else //rien à faire
 	{
 		return cheminAugmContracte;
-	}
+	}*/
+	return res;
 }

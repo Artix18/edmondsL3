@@ -14,7 +14,8 @@ void init(Vecteur* vect, int n)
 
 int init_bound(Vecteur *vect, int n)
 {
-	return 3*vect+4;
+	return -1;
+	//return 3*vect+4;
 }
 
 void push_back(Vecteur* vect, int val)
@@ -41,7 +42,8 @@ void push_back(Vecteur* vect, int val)
 
 int push_back_bound(Vecteur *vect, int val)
 {
-	return (vect->vapacite)*2+(vect->taille)*4+6;
+	return -1;
+	//return (vect->vapacite)*2+(vect->taille)*4+6;
 }
 
 int get(Vecteur *vect, int index)
@@ -122,7 +124,8 @@ Graph *nouveauGraphe(int nbNoeuds, int nbAretes)
 
 int nouveauGraphe_bound(int nbNoeuds, int nbAretes)
 {
-	return sizeof(Graph)+sizeof(int)+sizeof(Arc)+sizeof(Vecteur)+9+2*nbNoeuds;
+	return -1;
+	//return sizeof(Graph)+sizeof(int)+sizeof(Arc)+sizeof(Vecteur)+9+2*nbNoeuds;
 }
 
 Graph *recopieGraphe(Graph* g)
@@ -148,5 +151,6 @@ Graph *recopieGraphe(Graph* g)
 
 int recopieGraphe_bound(Graph *g)
 {
-	return 3+nouveauGraphe_bound(g->nbNoeuds, g->nbAretes)+3*nbNoeuds+2*nbAretes;
+	return -1;
+	//return 3+nouveauGraphe_bound(g->nbNoeuds, g->nbAretes)+3*nbNoeuds+2*nbAretes;
 }
