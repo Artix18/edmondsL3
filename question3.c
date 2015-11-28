@@ -2,7 +2,7 @@
 
 //il faut peut être faire gaffe si y'a une arete couplée qui sort de l'ensemble à fusionner ?
 //attention, mon implémentation génère des graphes "à trous" (ie les noeuds seront numérotés par ex 1, 2, 15, 16, ...)
-Graph* contracte(Graph* graph, Vecteur aContracter)
+Graph* contracte(Graph* graph, Vecteur aContracter, int affiche)
 {
 	int i;
 	int repres = get(&aContracter, 0);
@@ -29,6 +29,25 @@ Graph* contracte(Graph* graph, Vecteur aContracter)
 				pop_back(&gRes->listeAdj[noeud]);
 				j--;
 			}
+		}
+	}
+
+	if(affiche)
+	{
+		int noeud;
+		
+		printf("Graphe contracté :\n");
+		printf("%d %d\n", gRes->nbNoeuds, gRes->nbAretes);
+		
+		for (noeud=0; noeud<nbNoeuds; ; noeuds++)
+		{
+			int sz = size(&(gRes->listeAdj[noeud]));
+			Arc arete = get(&gRes->listeAdj[noeud], 0);
+			if(sz == 0 || (arete.a != noeud && arete.b != noeud))
+				continue;
+			printf("noeud %d :\n");
+			printf("%d ", sz);
+			affiche_vecteur(&(gRes->listeAdj[noeud]));
 		}
 	}
 	
