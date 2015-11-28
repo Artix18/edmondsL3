@@ -12,6 +12,11 @@ void init(Vecteur* vect, int n)
 		vect->tab[i]=0;
 }
 
+int init_bound(Vecteur *vect, int n)
+{
+	return 3*vect+4;
+}
+
 void push_back(Vecteur* vect, int val)
 {
 	if(vect->taille*4 >= 3*vect->capacite)
@@ -34,10 +39,20 @@ void push_back(Vecteur* vect, int val)
 	vect->tab[vect->taille-1]=val;
 }
 
+int push_back_bound(Vecteur *vect, int val)
+{
+	return (vect->vapacite)*2+(vect->taille)*4+6;
+}
+
 int get(Vecteur *vect, int index)
 {
 	assert(index < vect->taille);
 	return vect->tab[index];
+}
+
+int get_bound(Vecteur *vect, int index)
+{
+	return 2;
 }
 	
 void set(Vecteur* vect, int index, int val)
@@ -46,9 +61,19 @@ void set(Vecteur* vect, int index, int val)
 	vect->tab[index] = val;
 }
 
+int set_bound(Vecteur *vect, int index, int val)
+{
+	return 2;
+}
+
 int size(Vecteur *vect)
 {
 	return vect->taille;
+}
+
+int size_bound(Vecteur *vect)
+{
+	return 1;
 }
 
 void affiche_vecteur(Vecteur *vect)
@@ -62,11 +87,21 @@ void affiche_vecteur(Vecteur *vect)
 	putchar('\n');
 }
 
+int affiche_vecteur_bound(Vecteur *vect)
+{
+	4+2*(vect->taille);
+}
+
 int getAutreNoeud(Arc arc, int noeud)
 {
 	if(arc.a==noeud)
 		return arc.b;
 	return arc.a;
+}
+
+int getAutreNoeud_bound(Arc arc, int noeud)
+{
+	return 2;
 }
 
 Graph *nouveauGraphe(int nbNoeuds, int nbAretes)
@@ -83,6 +118,11 @@ Graph *nouveauGraphe(int nbNoeuds, int nbAretes)
 	for(i = 0; i < nbNoeuds; i++)
 		graph->idAretePrise[i]=-1;
 	return graph;
+}
+
+int nouveauGraphe_bound(int nbNoeuds, int nbAretes)
+{
+	return sizeof(Graph)+sizeof(int)+sizeof(Arc)+sizeof(Vecteur)+9+2*nbNoeuds;
 }
 
 Graph *recopieGraphe(Graph* g)
@@ -106,3 +146,7 @@ Graph *recopieGraphe(Graph* g)
 	return graph;
 }
 
+int recopieGraphe_bound(Graph *g)
+{
+	return 3+nouveauGraphe_bound(g->nbNoeuds, g->nbAretes)+3*nbNoeuds+2*nbAretes;
+}
