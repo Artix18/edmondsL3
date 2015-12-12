@@ -45,7 +45,7 @@ int getAutreNoeud(Arc arc, int noeud);
 typedef struct
 {
 	char estMarque;
-	int sommetDepartLibre;
+	int sommetLibreDepart;
 	char parite;
 	int precedent;
 } Mark;
