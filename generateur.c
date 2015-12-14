@@ -1,5 +1,5 @@
 // C'est mal écrit mais je ne connais presque pas le C !
-// J'ai 2 problèmes: d'abord je ne comprends pas très bien le type Graph et je n'arrive pas à donner graphe_aleatoire sous le type Graph.
+// J'ai 2 problèmes: d'abord je ne comprends pas très bien le type Graph et je n'arrive pas à donner graphe_aleatoire sous ce type.
 // L'autre problème est que ce programme renvoie toujours la même chose, cela vient surement de rand mais je ne sais pas pourquoi.
 // Je suppose que le problème sera réglé quand je génèrerai plusieurs fois de suite des graphes.
 
