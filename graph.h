@@ -61,7 +61,7 @@ typedef struct
 	//int **adjMatrix; //on pourrait peut-être utiliser une matrice d'adj plutot...
 	Vecteur *listeAdj;
 	//int **listeAdj;
-	vector<int> arcs[MAX_NB_NOEUDS];
+	//vector<int> arcs[MAX_NB_NOEUDS];
 } Graph;
 
 Graph *nouveauGraphe(int nbNoeuds, int nbAretes);

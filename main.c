@@ -36,9 +36,9 @@ int main()
 			scanf("%d", &b);
 			
 			//printf("debug : %d\n", i);
-			graph->arcs[i].push_back(b);
+			//graph->arcs[i].push_back(b);
 			
-			/*if(b < i)
+			if(b < i)
 				continue;
 			
 			graph->aretes[idAr].a=i;
@@ -46,7 +46,7 @@ int main()
 			graph->aretes[idAr].type=0;
 
 			push_back(&graph->listeAdj[i],idAr);
-			push_back(&graph->listeAdj[b],idAr++);*/
+			push_back(&graph->listeAdj[b],idAr++);
 		}
 	}
 
