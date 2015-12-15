@@ -62,6 +62,7 @@ typedef struct
 
 Graph *nouveauGraphe(int nbNoeuds, int nbAretes);
 Graph *recopieGraphe(Graph* g);
+void affiche_graphe(Graph *graph);
 
 Vecteur diff_symetrique(Graph *, int);
 Vecteur diff_symetrique2(Graph *graph, Vecteur *augm);

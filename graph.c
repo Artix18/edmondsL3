@@ -154,3 +154,15 @@ int recopieGraphe_bound(Graph *g)
 	return -1;
 	//return 3+nouveauGraphe_bound(g->nbNoeuds, g->nbAretes)+3*nbNoeuds+2*nbAretes;
 }
+
+void affiche_graphe (Graph *graph) {
+    int i;
+    
+    printf("%d %d\n", graph->nbNoeuds, graph->nbAretes);
+    for (i=0; i<graph->nbNoeuds; i++) {
+        int sz = size(&graph->listeAdj[i]);
+        
+        printf("%d ", sz);
+		affiche_vecteur(&graph->listeAdj[i]);
+    }
+}
