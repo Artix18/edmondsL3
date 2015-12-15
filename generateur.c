@@ -1,15 +1,16 @@
 // C'est mal écrit mais je ne connais presque pas le C !
-// problème: je ne comprends pas très bien le type Graph et je n'arrive pas à donner graphe_aleatoire sous ce type.
+// je ne sais pas pourquoi ça ne marche pas, apparemment nouveauGraphe n'est pas une fonction reconnue
 
 #include "graph.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-void graphe_aleatoire (int nbNoeuds) {
+Graph* graphe_aleatoire (int nbNoeuds) {
     int t[nbNoeuds][nbNoeuds];
-    int i, j, nbAretes=0;
-    int boolean, s = 0;
+    int i, j, nbAretes = 0;
+    int boolean, k = 0;
+    Graph* g;
     
     srand(time(NULL));
     
@@ -23,22 +24,34 @@ void graphe_aleatoire (int nbNoeuds) {
             }
         t[i][i] = 0;
     }
-    
-    printf("%d %d\n", nbNoeuds, nbAretes);
-    // ici au lieu de l'afficher il faudrait le traduire en un graphe de type Graph
-    // sinon je les mets dans des .txt et on les exécute manuellement
-    for (i=0; i<nbNoeuds; i++) {
-        for (j=0; j<nbNoeuds; j++)
-            s = s + t[i][j];
-        printf("%d ",s);
-        s = 0;
-        for (j=0; j<nbNoeuds; j++) {
-            if (t[i][j])
-                printf("%d ", j);
+
+    g = nouveauGraphe(nbNoeuds, nbAretes);
+    for (i=0; i<nbNoeuds; i++) { // on remplit les aretes
+        for (j=0; j<i; j++) {
+            if (t[i][j]) {
+                g->aretes[k].a = i;
+                g->aretes[k].b = j;
+                g->aretes[k].type = 0;
+                k++;
+            }
         }
-        putchar('\n');
     }
+
+    for (i=0; i<nbNoeuds; i++) { // on remplit les listes d'adjacences
+        g->listeAdj[i].capacite = nbNoeuds;
+        for (j=0; j<nbNoeuds; j++) {
+            if (t[i][j]) {
+                g->listeAdj[i].tab[g->listeAdj[i].taille] = j;
+                g->listeAdj[i].taille++;
+            }
+        }
+    }
+
+    return g;
 }
 
 
-main () { graphe_aleatoire (10); }
+main () {
+    Graph *graph = graphe_aleatoire (10);
+    affiche_graphe (graph);
+}
