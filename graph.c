@@ -105,7 +105,8 @@ Graph *nouveauGraphe(int nbNoeuds, int nbAretes)
 	graph->idAretePrise = (int*)malloc(nbNoeuds * sizeof(int));
 	graph->aretes   = (Arc*) malloc(nbAretes * sizeof(Arc));
 	graph->listeAdj = (Vecteur*)malloc(nbNoeuds * sizeof(Vecteur));
-	init(graph->listeAdj,0);
+	for(int i = 0; i < nbNoeuds; i++)
+	    init(&graph->listeAdj[i],0);
 
 	for(i = 0; i < nbNoeuds; i++)
 		graph->idAretePrise[i]=-1;

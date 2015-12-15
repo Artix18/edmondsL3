@@ -6,7 +6,8 @@ int main()
 	int nbNoeuds, nbAretes, type;
 	int idAr=0;
 	printf("Quelle question résoudre ?\n");
-	scanf("%d", &type);
+	//scanf("%d", &type);
+	type=6;
 	scanf("%d", &nbNoeuds);
 	scanf("%d", &nbAretes);
 	
@@ -34,7 +35,10 @@ int main()
 			int b;
 			scanf("%d", &b);
 			
-			if(b < i)
+			//printf("debug : %d\n", i);
+			graph->arcs[i].push_back(b);
+			
+			/*if(b < i)
 				continue;
 			
 			graph->aretes[idAr].a=i;
@@ -42,22 +46,26 @@ int main()
 			graph->aretes[idAr].type=0;
 
 			push_back(&graph->listeAdj[i],idAr);
-			push_back(&graph->listeAdj[b],idAr++);
+			push_back(&graph->listeAdj[b],idAr++);*/
 		}
 	}
 
 	switch(type)
 	{
 		case 0:
-			diff_symetrique(graph, 1);
+			//diff_symetrique(graph, 1);
 		break;
 
 		case 1:
-			couplageMaximumBiparti(graph, 1);
+			//couplageMaximumBiparti(graph, 1);
 		break;
 
 		case 2:
 			//TODO: tester la question 3 ici
+		break;
+		
+		case 6:
+		    couplageMax(graph,1);
 		break;
 
 		default:;

@@ -6,6 +6,9 @@
 #include <math.h>
 #include <string.h>
 #include <assert.h>
+#include <vector>
+
+using namespace std;
 
 #define SZ_DEFAULT 5;
 #define MAX_NB_NOEUDS 1000
@@ -58,17 +61,19 @@ typedef struct
 	//int **adjMatrix; //on pourrait peut-être utiliser une matrice d'adj plutot...
 	Vecteur *listeAdj;
 	//int **listeAdj;
+	vector<int> arcs[MAX_NB_NOEUDS];
 } Graph;
 
 Graph *nouveauGraphe(int nbNoeuds, int nbAretes);
 Graph *recopieGraphe(Graph* g);
 void affiche_graphe(Graph *graph);
 
-Vecteur diff_symetrique(Graph *, int);
-Vecteur diff_symetrique2(Graph *graph, Vecteur *augm);
-Vecteur couplageMaximumBiparti(Graph *graph, int affiche);
-Graph* contracte(Graph* graph, Vecteur aContracter, int affiche);
-Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte, int depart);
+//Vecteur diff_symetrique(Graph *, int);
+//Vecteur diff_symetrique2(Graph *graph, Vecteur *augm);
+//Vecteur couplageMaximumBiparti(Graph *graph, int affiche);
+//Graph* contracte(Graph* graph, Vecteur aContracter, int affiche);
+//Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte, int depart);
+void couplageMax(Graph *graph, int affiche);
 
 #endif
 
