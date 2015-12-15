@@ -23,6 +23,7 @@ void graphe_aleatoire (int nbNoeuds) {
         t[i][i] = 0;
     }
     
+    printf("6");
     printf("%d %d\n", nbNoeuds, nbAretes);
     for (i=0; i<nbNoeuds; i++) {
         int s = 0;
