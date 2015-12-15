@@ -1,0 +1,46 @@
+// C'est mal écrit mais je ne connais presque pas le C !
+
+#include "graph.h"
+#include "graph.c"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void graphe_aleatoire (int nbNoeuds) {
+    int t[nbNoeuds][nbNoeuds]; // bon en gros je ne sais pas comment faire autrement que de repasser par une matrice d'adjacence
+    int i, j, nbAretes = 0;
+    int boolean;
+    Graph* g;
+    
+    srand(time(NULL) +2.145153158646156);
+    
+    for (i=0; i<nbNoeuds; i++) {
+        for (j=0; j<i; j++) {
+            boolean = rand() % 2;
+            t[i][j] = boolean;
+            t[j][i] = boolean;
+            if (boolean)
+                nbAretes++;
+            }
+        t[i][i] = 0;
+    }
+    
+    printf("%d %d\n", nbNoeuds, nbAretes);
+    for (i=0; i<nbNoeuds; i++) {
+        int s = 0;
+        for (j=0; j<i; j++) {
+            if (t[i][j])
+                s++;
+        }
+        
+        printf("%d ", s);
+        for (j=0; j<i; j++) {
+            if (t[i][j])
+                printf("%d ", j);
+        }
+        putchar('\n');
+    }
+}
+
+
+main () { graphe_aleatoire (10); }
