@@ -73,6 +73,7 @@ Vecteur diff_symetrique(Graph *, int);
 Vecteur diff_symetrique2(Graph *graph, Vecteur *augm);
 Vecteur couplageMaximumBiparti(Graph *graph, int affiche);
 Graph* contracte(Graph* graph, Vecteur aContracter, int affiche);
+int contracte_bound(Graph* graph, Vecteur aContracter, int affiche);
 Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte, int depart);
 void couplageMax(Graph *graph, int affiche);
 

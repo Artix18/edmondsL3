@@ -16,6 +16,10 @@ int getLast(Graph *graph, Vecteur chemin, int depart)
 	return final;
 }
 
+int getLast_bound(Graph *graph, Vecteur chemin, int depart) {
+    return 3+2*size(&chemin);
+}
+
 int donneCetteArete(Graph *graph, int a, int b)
 {
 	int i;
@@ -29,6 +33,10 @@ int donneCetteArete(Graph *graph, int a, int b)
 	}
 	
 	return -1;
+}
+
+int donneCetteArete_bound (Graph *graph, int a, int b) {
+    2+9*size(&graph->listeAdj[a]);
 }
 
 void relieDansCorolle(Graph *graph, Vecteur corolle, int dep, int fin, char flag, Vecteur* res) //on sq fin=corolle[0]
@@ -65,6 +73,10 @@ void relieDansCorolle(Graph *graph, Vecteur corolle, int dep, int fin, char flag
 			curPos=next;
 		}
 	}
+}
+
+int relieDansCorolle_bound(Graph *graph, Vecteur corolle, int dep, int fin, char flag, Vecteur* res) {
+    return 3+(10+2*graph->nbNoeuds)*size(&corolle);
 }
 
 //je viens de penser au fait qu'il peut y avoir un bug si la fusion est mal faite : 
@@ -137,4 +149,8 @@ Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte
 		return cheminAugmContracte;
 	}*/
 	return res;
+}
+
+int decompression_bound (Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte, int depart) {
+    return contracte_bound(graph, corolle, 0)+30+(3+(10+2*graph->nbNoeuds)*size(&corolle))+size(&cheminAugmContracte)*(20+2*(3+(10+2*graph->nbNoeuds)*size(&corolle)));
 }

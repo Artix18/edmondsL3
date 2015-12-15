@@ -85,7 +85,7 @@ void affiche_vecteur(Vecteur *vect) {
 }
 
 int affiche_vecteur_bound(Vecteur *vect) {
-	4+(vect->taille);
+	return 4+(vect->taille);
 }
 
 int getAutreNoeud(Arc arc, int noeud)
