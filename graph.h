@@ -6,9 +6,6 @@
 #include <math.h>
 #include <string.h>
 #include <assert.h>
-#include <vector>
-
-using namespace std;
 
 #define SZ_DEFAULT 5;
 #define MAX_NB_NOEUDS 1000
