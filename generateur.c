@@ -2,6 +2,7 @@
 // je ne sais pas pourquoi ça ne marche pas, apparemment nouveauGraphe n'est pas une fonction reconnue
 
 #include "graph.h"
+#include "graph.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
