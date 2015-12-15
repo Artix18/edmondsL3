@@ -55,7 +55,6 @@ Vecteur diff_symetrique2(Graph *graph, Vecteur *augm)
 	return solution;
 }
 
-int diff_symetrique2_bound(Graph *graph, Vecteur *augm)
-{
-	return 3*size(augm)+5;
+int diff_symetrique2_bound(Graph *graph, Vecteur *augm) {
+	return size(augm)*size(augm)+5;
 }

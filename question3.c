@@ -54,3 +54,11 @@ Graph* contracte(Graph* graph, Vecteur aContracter, int affiche)
 	
 	return gRes;
 }
+
+int contracte_bound (Graph *graph, Vecteur aContractern, int affiche) {
+    int res = 4+affiche*3+graph->nbNoeuds*7;
+    int noeud;
+    for (noeud=0; noeud < graph->nbNoeuds; noeud++)
+        res = res + affiche_vecteur_bound(&graph->listeAdj[noeud]);
+    return res;
+}

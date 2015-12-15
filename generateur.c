@@ -1,5 +1,3 @@
-// C'est mal écrit mais je ne connais presque pas le C !
-
 #include "graph.h"
 #include "graph.c"
 #include <stdio.h>
@@ -42,5 +40,8 @@ void graphe_aleatoire (int nbNoeuds) {
     }
 }
 
+int graphe_aleatoire_bound (int nbNoeuds) {
+    return 6+nbNoeuds*nbNoeuds*5;
+}
 
 main () { graphe_aleatoire (300); }
