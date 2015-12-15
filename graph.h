@@ -27,6 +27,7 @@ int get(Vecteur *vect, int index);
 void set(Vecteur* vect, int index, int val);
 int size(Vecteur *vect);
 void affiche_vecteur(Vecteur *vect);
+int affiche_vecteur_bound(Vecteur *vect);
 
 //Représentation d'une arête. A noter qu'on aurait aussi pu recoder un "vector" et garder uniquement la destination, mais que cela aurait aussi necessiter de stocker l'indice de l'arête "inverse" lorsque l'on veut changer le type, ou juste un propre à l'arête.
 typedef struct
@@ -68,11 +69,11 @@ Graph *nouveauGraphe(int nbNoeuds, int nbAretes);
 Graph *recopieGraphe(Graph* g);
 void affiche_graphe(Graph *graph);
 
-//Vecteur diff_symetrique(Graph *, int);
-//Vecteur diff_symetrique2(Graph *graph, Vecteur *augm);
-//Vecteur couplageMaximumBiparti(Graph *graph, int affiche);
-//Graph* contracte(Graph* graph, Vecteur aContracter, int affiche);
-//Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte, int depart);
+Vecteur diff_symetrique(Graph *, int);
+Vecteur diff_symetrique2(Graph *graph, Vecteur *augm);
+Vecteur couplageMaximumBiparti(Graph *graph, int affiche);
+Graph* contracte(Graph* graph, Vecteur aContracter, int affiche);
+Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte, int depart);
 void couplageMax(Graph *graph, int affiche);
 
 #endif

@@ -6,8 +6,7 @@ int main()
 	int nbNoeuds, nbAretes, type;
 	int idAr=0;
 	printf("Quelle question résoudre ?\n");
-	//scanf("%d", &type);
-	type=6;
+	scanf("%d", &type);
 	scanf("%d", &nbNoeuds);
 	scanf("%d", &nbAretes);
 	
@@ -53,11 +52,11 @@ int main()
 	switch(type)
 	{
 		case 0:
-			//diff_symetrique(graph, 1);
+			diff_symetrique(graph, 1);
 		break;
 
 		case 1:
-			//couplageMaximumBiparti(graph, 1);
+			couplageMaximumBiparti(graph, 1);
 		break;
 
 		case 2:
