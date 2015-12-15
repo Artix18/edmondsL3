@@ -1,5 +1,4 @@
 // C'est mal écrit mais je ne connais presque pas le C !
-// je ne sais pas pourquoi ça ne marche pas, apparemment nouveauGraphe n'est pas une fonction reconnue
 
 #include "graph.h"
 #include "graph.c"
@@ -7,10 +6,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-Graph* graphe_aleatoire (int nbNoeuds) {
-    int t[nbNoeuds][nbNoeuds];
+void graphe_aleatoire (int nbNoeuds) {
+    int t[nbNoeuds][nbNoeuds]; // bon en gros je ne sais pas comment faire autrement que de repasser par une matrice d'adjacence
     int i, j, nbAretes = 0;
-    int boolean, k = 0;
+    int boolean;
     Graph* g;
     
     srand(time(NULL));
@@ -25,34 +24,23 @@ Graph* graphe_aleatoire (int nbNoeuds) {
             }
         t[i][i] = 0;
     }
-
-    g = nouveauGraphe(nbNoeuds, nbAretes);
-    for (i=0; i<nbNoeuds; i++) { // on remplit les aretes
-        for (j=0; j<i; j++) {
-            if (t[i][j]) {
-                g->aretes[k].a = i;
-                g->aretes[k].b = j;
-                g->aretes[k].type = 0;
-                k++;
-            }
-        }
-    }
-
-    for (i=0; i<nbNoeuds; i++) { // on remplit les listes d'adjacences
-        g->listeAdj[i].capacite = nbNoeuds;
+    
+    printf("%d %d\n", nbNoeuds, nbAretes);
+    for (i=0; i<nbNoeuds; i++) {
+        int s = 0;
         for (j=0; j<nbNoeuds; j++) {
-            if (t[i][j]) {
-                g->listeAdj[i].tab[g->listeAdj[i].taille] = j;
-                g->listeAdj[i].taille++;
-            }
+            if (t[i][j])
+                s++;
         }
+        
+        printf("%d ", s);
+        for (j=0; j<nbNoeuds; j++) {
+            if (t[i][j])
+                printf("%d ", j);
+        }
+        putchar('\n');
     }
-
-    return g;
 }
 
 
-main () {
-    Graph *graph = graphe_aleatoire (10);
-    affiche_graphe (graph);
-}
+main () { graphe_aleatoire (300); }
