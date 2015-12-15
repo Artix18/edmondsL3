@@ -1,0 +1,54 @@
+Projet d'algo, cours d'algorithmique L3 2015-2016
+
+Membres du groupe : Lucas, Joseph, Jules
+Sujet : Algorithme d'Edmonds (Blossom algorithm)
+
+Notre travail : Nous avons implémenté chacune des questions du sujet proposé. Nous avons codé un générateur aléatoire de graphes
+très simples dans le but de tester nos algorithmes, notamment pour la dernière question. Nous avons choisi le modèle aléatoire
+d'une probabilité uniforme de 1/2 pour chaque arête, pour obtenir des graphes où la réponse est probablement N/2, avec très
+probablement des fleurs dans tous les sens, ce qui a permi de vérifier que notre algorithme fonctionnait bien.
+
+Nos initiatives : Nous avons décidé de ne pas utiliser les questions précédentes pour implémenter la dernière question.
+Nous avons en effet remarqué quelques propriétés qui simplifiaient l'implémentation de cette question, que nous avons
+trouvé très difficile à coder sans bug malgré nos simplifications.
+Voici les remarques qui nous ont poussé dans cette direction : 
+-Plutôt que de prendre des arêtes arbitrairement, on peut considérer l'ordre du DFS.
+-Quitte à sauter un noeud sur deux, on peut alors retirer la parité du marquage, et ainsi ne traiter que les noeuds pairs.
+-La source peut aussi être retirée du marquage puisque c'est le noeud dont est parti le DFS.
+-Finalement, avec cette approche, le cas C du polycopié ne se présente pas, puisque l'on considère un chemin.
+-Le graphe implicite obtenu en fusionnant les noeuds d'une fleur n'a pas besoin d'être construit vraiment explicitement,
+ il suffit d'attribuer un représentant à chacun des noeuds, et de lancer le dfs sur eux (puisqu'ils sont désormais pairs).
+
+Afin de simplifier le code, nous avons choisi d'utiliser des tableaux globaux pour cette question.
+
+Difficultés rencontrées : 
+-Nous avons passé beaucoup de temps à debuger. Nous sommes même passés par une phase en C++ puisque notre structure de vecteur
+ était visiblement bugée (en fait, créer un vecteur de taille nulle ne fonctionnait pas vraiment...).
+ Un point important du debug était une erreur dans l'ordre de parcours de nos noeuds lors du DFS. En effet, il faut faire
+ attention à la cohérence entre le marquage des pères/visités et l'ordre dans lequel on appelle les voisins dans le DFS.
+ Il nous semble que notre choix de passer en itératif a considérablement participé au débugage puisqu'ainsi se distinguent clairement
+ 2 phases. Cependant, si les choses sont bien faites, il devrait être possible de se passer de la fonction "trouveBase" qui trouve le
+ préfixe commun des deux (demi-corolle+tige) pour en déduire la base. En effet, il nous semble toujours possible grâce au DFS, bien
+ que nous n'y soyons pas parvenus, de trouver directement la base : il s'agirait du noeud qui nous fait cycler.
+
+Méthode de travail : Nous avons utilisé GitHub pour ce projet. Nous avons retiré les informations de debug du projet pour plus de lisibilité dans le code, mais elles sont disponibles dans notre github, à l'adresse suivante : https://github.com/Artix18/edmondsL3
+Ces informations de debug permettent ainsi de retracer l'évolution de l'implémentation de la question 5.
+
+Résultats : Notre algorithme fonctionne sur nos petits tests (nous avons vérifié manuellement) et a l'air de fonctionner sur les plus
+gros d'après les remarques précédentes. De plus, puisque le sujet 5 du concours Prologin de cette année demande l'implémentation
+de l'algorithme d'Edmonds, nous avons pu le tester (https://prologin.org/train/2016/qualification/un_peu_de_compagnie) et passons
+tous les tests de vérification dans le temps imparti.
+La complexité de notre algorithme est O(N^3), où N est le nombre de noeuds.
+
+Comment tester notre code :
+Le format d'entrée est le suivant : sur la première ligne, il faut indiquer le numéro de la question à résoudre (/!\ cette numérotation
+est indiquée dans le fichier main.c).
+Puis il suffit de renseigner un graphe comme indiqué dans la page de présentation des projets (forme canonique des graphes).
+En fonction de la question choisie, d'autres informations seront éventuellement demandées ensuite, de manière indiquée par le programme.
+Une alternative consiste à exécuter directement notre programme sur les fichiers tests dans ./tests/.
+
+Si nous avions plus de temps : Nous pensons qu'il faudrait recoder certaines parties de la structure pour qu'elle soit plus cohérente.
+En effet, pour l'instant le format de sortie n'est pas le même dépendant de la question, et ce dû à des choix de représentations des
+données qui ont évolué au cours de notre avancée dans la résolution des questions. D'un autre côté, nous avons beaucoup hésité et 
+hésitons toujours quant au format de sortie attendu : liste des paires de noeuds, identifiants d'arêtes...
+Nous aurions aussi aimé fournir une représentation graphique des temps de calcul de nos algorithmes (notamment du dernier), grâce à pyplot en python.
