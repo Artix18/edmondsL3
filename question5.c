@@ -27,6 +27,7 @@ int trouveBase(Graph *graph, int next, int noeud)
 {
     for(int j = 0; j < graph->nbNoeuds; j++)
         bidule[j]=0;
+    //on marque toutes les arêtes du chemin de next jusqu'au bout de la tige, en les prenant 2 par 2.
     while(1)
 	{
 	    next=repres[next];
@@ -34,6 +35,7 @@ int trouveBase(Graph *graph, int next, int noeud)
 	    if(match[next]==-1)break;
 	    next=peres[match[next]];
 	}
+	//on prend les arêtes deux par deux jusqu'à ce que l'on arrive sur un noeud marqué, qui est alors la base de la corolle.
 	while(1)
 	{
 	    noeud=repres[noeud];
@@ -56,20 +58,24 @@ int dfs(Graph* graph, int source)
 
 	    for(int j = 0; j < size(&graph->listeAdj[noeud]); j++)
 	    {
-		    int nextArete = get(&graph->listeAdj[noeud], j);
+		    int nextArete = get(&graph->listeAdj[noeud], j); //id de l'arête (noeud,next)
 		    int next = getAutreNoeud(graph->aretes[nextArete], noeud);
 
+            //si next est le noeud couplé à noeud, on ignore (car noeud est pair)
+            //si on se relie à "nous-même", pareil.
 		    if(match[noeud]==next || repres[noeud]==repres[next])
 		        continue;
+		    //si on a trouvé un cycle impair
 		    if(next==source || (match[next]!=-1 && peres[match[next]]!=-1))
 		    {
 			    int base = trouveBase(graph, next, noeud);
-			
+
 			    int cur = noeud;
 			    int prec = next;
 		        char blossom[MAX_NB_NOEUDS];
 		        for(int i = 0; i < graph->nbNoeuds; i++)
 		            blossom[i]=0;
+		        //on parcourt les arêtes 2 par 2 en marquant tout ce qui fait parti du blossom (on s'arrête sur la base).
 			    while(repres[cur] != base)
 			    {
 			        blossom[repres[cur]]=blossom[repres[match[cur]]]=1;
@@ -78,7 +84,19 @@ int dfs(Graph* graph, int source)
 			        prec = match[cur];
 			        cur=peres[match[cur]];
 			    }
+			    //cette partie devrait être facultative dans une bonne conception du dfs (puisqu'alors next serait la base).
+			    /*cur=next;
+			    prec=noeud;
+			    while(repres[cur] != base)
+			    {
+			        blossom[repres[cur]]=blossom[repres[match[cur]]]=1;
+
+			        peres[cur] = prec;
+			        prec = match[cur];
+			        cur=peres[match[cur]];
+			    }*/
 			
+			    //"contraction"
 			    for(int i = 0; i < graph->nbNoeuds; i++)
 			    {
 			        if(blossom[repres[i]])
@@ -92,12 +110,12 @@ int dfs(Graph* graph, int source)
 			        }
 			    }
 		    }
-		    else if(match[next]==-1 && peres[next]==-1)
+		    else if(match[next]==-1 && peres[next]==-1) //chemin augmentant trouvé, cas A
 		    {
 		        peres[next]=noeud;
 			    return next; //cheminAugmentant depart->...->next
 		    }
-		    else if(peres[next]==-1)
+		    else if(peres[next]==-1) //cas B du poly
 		    {
 			    int copain = match[next];
 			    peres[next] = noeud;
@@ -121,6 +139,7 @@ void couplageMax(Graph *graph, int affiche)
     {
         if(match[i]==-1)
         {
+            //réinitialisation
             for(int j = 0; j < graph->nbNoeuds; j++)
             {
                 vvu[j]=0;
@@ -130,6 +149,7 @@ void couplageMax(Graph *graph, int affiche)
             
             int dernier = dfs(graph, i);
             
+            //différence symétrique
             while(dernier != -1)
             {
                 int prec = peres[dernier];
@@ -141,7 +161,6 @@ void couplageMax(Graph *graph, int affiche)
         }
     }
     
-
     int cnt=0;
     
     for(int i = 0; i < graph->nbNoeuds; i++)
