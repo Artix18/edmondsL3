@@ -5,7 +5,7 @@
 #include <time.h>
 
 void graphe_aleatoire (int nbNoeuds) {
-    int t[nbNoeuds][nbNoeuds]; // bon en gros je ne sais pas comment faire autrement que de repasser par une matrice d'adjacence
+    int t[nbNoeuds][nbNoeuds];
     int i, j, nbAretes = 0;
     int boolean;
     Graph* g;
