@@ -1,5 +1,4 @@
 #include "graph.h"
-#include "graph.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -23,7 +22,7 @@ void graphe_aleatoire (int nbNoeuds) {
         t[i][i] = 0;
     }
     
-    printf("6");
+    printf("6\n");
     printf("%d %d\n", nbNoeuds, nbAretes);
     for (i=0; i<nbNoeuds; i++) {
         int s = 0;
@@ -45,4 +44,8 @@ int graphe_aleatoire_bound (int nbNoeuds) {
     return 6+nbNoeuds*nbNoeuds*5;
 }
 
-main () { graphe_aleatoire (300); }
+int main () 
+{
+    graphe_aleatoire (300);
+    return 0;
+}
