@@ -80,9 +80,8 @@ int relieDansCorolle_bound(Graph *graph, Vecteur corolle, int dep, int fin, char
 }
 
 //je viens de penser au fait qu'il peut y avoir un bug si la fusion est mal faite : 
-//il peut y avoir plusieur arêtes entre deux corolles, et donc entre deux noeuds dans le graphe réduit. Ca a l'air normal mais pas sur.
-//Si c'est normal => liste d'adjacences youpi. Sinon plus simple avec mat d'adj.
-Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte, int depart) //on suppose que corolle est donné sous forme de cycle
+//il peut y avoir plusieur arêtes entre deux corolles, et donc entre deux noeuds dans le graphe réduit.
+Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte, int depart, int affiche) //on suppose que corolle est donné sous forme de cycle
 {
 	int i;
 	
@@ -135,7 +134,8 @@ Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte
 		last=nxt;
 	}
 
-	/*if(arete.a == repres || graph->aretes[get(&CheminAugmContracte, size(&cheminAugmContracte)-1)].b==repres) //ou b, mais hum.
+    //obsolète
+	/*if(arete.a == repres || graph->aretes[get(&CheminAugmContracte, size(&cheminAugmContracte)-1)].b==repres) //en gros
 	{
 		//extremité, il suffit donc de tracer le chemin jusqu'à la base.
 	}
@@ -148,6 +148,11 @@ Vecteur decompression(Graph* graph, Vecteur corolle, Vecteur cheminAugmContracte
 	{
 		return cheminAugmContracte;
 	}*/
+	if(affiche)
+	{
+	    printf("Chemin augmentant décompressé (de taille %d) : \n", size(&res));
+	    affiche_vecteur(&res);
+	}
 	return res;
 }
 

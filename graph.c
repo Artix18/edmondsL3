@@ -3,12 +3,9 @@
 void init(Vecteur* vect, int n)
 {
 	int i;
-	
-	if(n<2)
-        n=2;
 
 	vect->taille = n;
-	vect->capacite  = 2*n;
+	vect->capacite  = 2*(n+2);
 	vect->tab = (int*)malloc(vect->capacite*sizeof(int));
 
 	for(i = 0; i < vect->taille; i++)

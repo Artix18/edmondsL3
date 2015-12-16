@@ -65,7 +65,8 @@ int dfs(Graph* graph, int source)
             //si on se relie à "nous-même", pareil.
 		    if(match[noeud]==next || repres[noeud]==repres[next])
 		        continue;
-		    //si on a trouvé un cycle impair
+		    //si on a trouvé un cycle impair (en revenant à la source, ou : next est impair donc si match[next] a un père, 
+		    //alors match[next] est aussi impair)
 		    if(next==source || (match[next]!=-1 && peres[match[next]]!=-1))
 		    {
 			    int base = trouveBase(graph, next, noeud);
@@ -85,7 +86,7 @@ int dfs(Graph* graph, int source)
 			        cur=peres[match[cur]];
 			    }
 			    //cette partie devrait être facultative dans une bonne conception du dfs (puisqu'alors next serait la base).
-			    /*cur=next;
+			    cur=next;
 			    prec=noeud;
 			    while(repres[cur] != base)
 			    {
@@ -94,7 +95,7 @@ int dfs(Graph* graph, int source)
 			        peres[cur] = prec;
 			        prec = match[cur];
 			        cur=peres[match[cur]];
-			    }*/
+			    }
 			
 			    //"contraction"
 			    for(int i = 0; i < graph->nbNoeuds; i++)
