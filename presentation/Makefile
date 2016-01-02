@@ -6,7 +6,7 @@ DEP=$(wildcard *.sty *.jpg *.png)
 THEME=Custom
 
 $(OUTPUT): $(INPUT) $(DEP)
-	pandoc -st beamer -V theme:$(THEME) -V lang:francais $(INPUT) -o $(OUTPUT)
+	pandoc -st beamer -V theme:$(THEME) $(INPUT) -o $(OUTPUT)
 
 withversion: $(INPUT) $(DEP)
 	<$(INPUT) ./inject_version |\

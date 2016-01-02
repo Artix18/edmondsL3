@@ -6,24 +6,36 @@
 
 ## Rappel du problème
 
-- Etant donné un graphe non orienté, on souhaite sélectionner un ensemble d'arête tel que :   
- * Cet ensemble soit le plus grand possible.   
- * Chaque noeud du graphe apparait au plus dans une arête de l'ensemble.
-- La liste des arêtes d'un tel ensemble est appelée **couplage maximum**.
+* Etant donné un graphe non orienté, on souhaite sélectionner un ensemble d'arêtes tel que :   
+	* Cet ensemble soit le plus grand possible.   
+	* Chaque noeud du graphe apparait au plus dans une arête de l'ensemble.
+  La liste des arêtes d'un tel ensemble est appelée **couplage maximum**.
 
-- **_ L'objectif est de trouver un tel couplage en temps polynomial. _**
+* ***L'objectif est de trouver un tel couplage en temps polynomial.***
 
-### Exemple :
+## Cas particulier
 
-On peut s'intéresser au problème du couplage maximum dans des graphes particuliers, par exemple, des graphes _bipartis_.   
-- Considérons le problème suivant : 
+On peut s'intéresser au problème du couplage maximum dans des graphes particuliers. 
+
+### Exemple, graphe biparti  
 - N personnes numérotées de 1 à N et N vélos numérotés de 1 à N. Chaque personne aime certains vélos : on donne pour chaque personne la liste des vélos qu'elle aime bien.   
 - Est-il possible d'attribuer un vélo à chaque personne ?
-- C'est le problème du couplage maximum dans un graphe biparti.
+- C'est le problème du *couplage maximum dans un graphe biparti*.
 
-## Du code
+## Résolution particulière
 
-La coloration de code est très simple.
+On se donne la représentation suivante pour un graphe biparti.
+\center\includegraphics[height=6.5cm]{graphe_biparti1.png}
+
+Comment déterminer le couplage maximum ?
+
+## Résolution particulière (2)
+
+Quel que soit le couplage, il est maximum ssi il n'existe pas de chemin augmentant (image needed).
+
+### Généralisation
+
+Retour aux graphes généraux, l'idée est la même.
 
 ### Un Hello World!
 
