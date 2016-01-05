@@ -17,6 +17,10 @@
 
 On peut s'intéresser au problème du couplage maximum dans des graphes particuliers. 
 
+#### Lol
+
+bidule
+
 ### Exemple, graphe biparti  
 - N personnes numérotées de 1 à N et N vélos numérotés de 1 à N. Chaque personne aime certains vélos : on donne pour chaque personne la liste des vélos qu'elle aime bien.   
 - Est-il possible d'attribuer un vélo à chaque personne ?
@@ -24,8 +28,9 @@ On peut s'intéresser au problème du couplage maximum dans des graphes particul
 
 ## Résolution particulière
 
-On se donne la représentation suivante pour un graphe biparti.
-\center\includegraphics[height=6.5cm]{graphe_biparti1.png}
+On se donne la représentation suivante pour un graphe biparti.   
+Les arêtes coloriées appartiennent au couplage.
+\center\includegraphics[height=6.5cm]{biparti1.png}
 
 Comment déterminer le couplage maximum ?
 
@@ -33,9 +38,24 @@ Comment déterminer le couplage maximum ?
 
 Quel que soit le couplage, il est maximum ssi il n'existe pas de chemin augmentant (image needed).
 
-### Généralisation
+### Algorithme de couplage dans un graphe biparti
 
-Retour aux graphes généraux, l'idée est la même.
+~~~{.python .numberLines}
+changement = VRAI
+while (changement):
+	changement = FAUX
+	cheminAugmentant = trouveCheminAugmentant()
+	if (cheminAugmentant nest pas vide):
+		prendreLeCheminAugmentant()
+		changement = VRAI
+~~~
+
+# Généralisation
+##
+
+\center\includegraphics[height=6.5cm]{edmonds2.jpg}
+
+## Idée générale de l'algorithme
 
 ### Un Hello World!
 
