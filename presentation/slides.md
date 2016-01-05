@@ -30,7 +30,8 @@ bidule
 
 On se donne la représentation suivante pour un graphe biparti.   
 Les arêtes coloriées appartiennent au couplage.
-\center\includegraphics[height=6.5cm]{biparti1.png}
+<!--![coucou](biparti1.png)-->
+\center\includegraphics[height=6.5cm]{graphebiparti1.png}
 
 Comment déterminer le couplage maximum ?
 
@@ -56,6 +57,8 @@ while (changement):
 \center\includegraphics[height=6.5cm]{edmonds2.jpg}
 
 ## Idée générale de l'algorithme
+
+
 
 ### Un Hello World!
 
