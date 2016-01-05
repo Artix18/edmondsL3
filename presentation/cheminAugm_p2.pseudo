@@ -1,0 +1,9 @@
+   parite = 1 - parite
+   pere[noeud] = papa
+   if (parite == IMPAIR):
+      return trouveCheminAugmentant(couple[noeud], parite, noeud)
+   else
+      pour chaque voisin non couple a noeud : 
+         si trouveCheminAugmentant(voisin, parite, noeud)
+            retrouve le chemin augmentant
+   return VIDE

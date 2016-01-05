@@ -8,6 +8,18 @@
 \logo{\includegraphics[height=1.5cm]{ens.png}}
 
 \usepackage{booktabs,latexsym,amssymb,wasysym}
+\usepackage{listings}
+
+\lstset{breaklines, breakindent=1.5em, upquote=true,columns=flexible,basicstyle=\ttfamily}
+\lstset{language=C++,
+				breaklines,
+				breakindent=1.5em,
+                basicstyle=\ttfamily,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{cyanp}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#}
+}
 
 \hypersetup{colorlinks,linkcolor=,urlcolor=Color3}
 
@@ -15,6 +27,7 @@
 \usecolortheme{whale}
 \usecolortheme{orchid}
 \useinnertheme[shadow]{rounded}
+\vspace*{-1cm}
 
 % to disable the navigation bar
 \setbeamertemplate{navigation symbols}{}
@@ -37,7 +50,7 @@
 % title blocks: can be better depending on selected colors
 %\setbeamercolor{titlelike}{bg=Color2,fg=white}
 
-\newcommand{\code}[1]{\textcolor{Color3}{\footnotesize{\texttt{#1}}}}
+\newcommand{\code}[1]{\textcolor{Color3}{footnotesize{\texttt{#1}}}}
 \newcommand{\entity}[1]{\textcolor{Color2}{#1}}
 \newcommand{\good}{\textcolor{green}{\smiley}}
 \newcommand{\bad}{\textcolor{red}{\frownie}}

@@ -17,10 +17,6 @@
 
 On peut s'intéresser au problème du couplage maximum dans des graphes particuliers. 
 
-#### Lol
-
-bidule
-
 ### Exemple, graphe biparti  
 - N personnes numérotées de 1 à N et N vélos numérotés de 1 à N. Chaque personne aime certains vélos : on donne pour chaque personne la liste des vélos qu'elle aime bien.   
 - Est-il possible d'attribuer un vélo à chaque personne ?
@@ -31,7 +27,7 @@ bidule
 On se donne la représentation suivante pour un graphe biparti.   
 Les arêtes coloriées appartiennent au couplage.
 <!--![coucou](biparti1.png)-->
-\center\includegraphics[height=6.5cm]{graphebiparti1.png}
+\center\includegraphics[height=4.5cm]{graphebiparti1.png}
 
 Comment déterminer le couplage maximum ?
 
@@ -46,7 +42,7 @@ changement = VRAI
 while (changement):
 	changement = FAUX
 	cheminAugmentant = trouveCheminAugmentant()
-	if (cheminAugmentant nest pas vide):
+	if (cheminAugmentant != VIDE):
 		prendreLeCheminAugmentant()
 		changement = VRAI
 ~~~
@@ -58,15 +54,39 @@ while (changement):
 
 ## Idée générale de l'algorithme
 
+### Résultat admis
 
+Dans un graphe général, un couplage est maximum si et seulement si il n'existe pas de chemin augmentant.
 
-### Un Hello World!
+Ceci nous conduit à l'idée suivante : *faire comme précédemment !*   
+Il suffit de boucler tant qu'on 
 
-~~~java
-public static void main(String... args) {
-    System.out.println("Hello world!");
-}
-~~~
+## Problème : existence de cycles impairs
+
+Pour trouver un chemin augmentant, on ne peut plus procéder exactement comme avant à cause de la présence de cycles impairs.
+TODO: image illustrant ça.
+
+## Solution : la contraction de fleurs
+
+Conformément au lemme admis dans le polycopié, on peut continuer à chercher un chemin augmentant sur le graphe contracté, dans lequel le cycle impair,
+appelé fleur, a été fusionné en un seul noeud. C'est l'**algorithme d'Edmonds**.
+
+### Remarques
+* Nous avons choisi l'ordre du DFS sur les arêtes en conservant l'algorithme décrit dans le sujet.
+* Le pseudo-code qui va suivre diffère légèrement du code que nous avons écrit, pour faciliter la compréhension.
+* Comme signalé dans le rapport, nous pensons que la fonction trouveCorolle devrait être triviale.
+
+## Blossom Algorithm
+
+### Pseudo-code
+
+\lstinputlisting[language=python]{cheminAugm_p1.pseudo}
+
+## Suite du code
+
+### Suite du pseudo-code
+
+\lstinputlisting[language=python]{cheminAugm_p2.pseudo}
 
 ## Du code numéroté
 
