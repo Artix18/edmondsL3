@@ -227,9 +227,30 @@ Nous avons passé beaucoup de temps à débugger à cause de ce point.
 
 ## Un générateur de tests
 
+
+
 ## Des sites pour tester
 
-## De beaux graphiques
+Nous avons testé notre algorithme avec succès sur les sites suivants : 
+
+* https://www.codechef.com/problems/SEAGRP
+* www.prologin.org
+
+. . .
+
+    * Nous passons aussi bien les tests de vérification que de performance !
+
+## De beaux graphiques (1)
+
+Temps d'exécution dans le cas des graphes bipartis :
+
+\center\includegraphics[height=7.5cm]{tempsexec_graphebiparti.png}
+
+## De beaux graphiques (2)
+
+Temps d'exécution dans le cas des graphes généraux : 
+
+\center\includegraphics[height=7.5cm]{tempsexec_graphegeneral.png}
 
 # Conclusion
 
