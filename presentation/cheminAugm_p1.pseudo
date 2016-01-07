@@ -1,10 +1,10 @@
-trouveCheminAugmentant(noeud, parite, papa):
+trouveCheminAugmentant(noeud, G, parite=0, papa=-1):
    if(parite==PAIR && couple[noeud] == NON_COUPLE):
       return chemin_augmentant_trouve()
    if (dejaVu[noeud] && parite != impair[noeud]):
       corolle = trouveCorolle()
-      fusionneEnCorolle(corolle)
-      -> marque corolle non vue
-      return trouveCheminAugmentant(corolle)
+      G2 = fusionneEnCorolle(corolle)
+      return dfs(G2) // tout est remis a 0
    dejaVu[noeud] = 1
    impair[noeud] = parite
+   parite = 1 - parite

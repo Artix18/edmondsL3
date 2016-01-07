@@ -1,4 +1,3 @@
-   parite = 1 - parite
    pere[noeud] = papa
    if (parite == IMPAIR):
       return trouveCheminAugmentant(couple[noeud], parite, noeud)

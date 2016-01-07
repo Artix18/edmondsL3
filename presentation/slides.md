@@ -33,7 +33,13 @@ Comment déterminer le couplage maximum ?
 
 ## Résolution particulière (2)
 
-Quel que soit le couplage, il est maximum ssi il n'existe pas de chemin augmentant (image needed).
+Quel que soit le couplage, il est maximum si et seulement si il n'existe pas de chemin augmentant.
+
+\center\includegraphics[height=4.5cm]{graphebiparti_mixt.png}
+
+## Résolution particulière (3)
+
+On obtient donc l'algorithme suivant : 
 
 ### Algorithme de couplage dans un graphe biparti
 
@@ -58,13 +64,17 @@ while (changement):
 
 Dans un graphe général, un couplage est maximum si et seulement si il n'existe pas de chemin augmentant.
 
-Ceci nous conduit à l'idée suivante : *faire comme précédemment !*   
-Il suffit de boucler tant qu'on 
+Ceci nous conduit à l'idée suivante : 
+
+. . .
+
+***faire comme précédemment !***
 
 ## Problème : existence de cycles impairs
 
 Pour trouver un chemin augmentant, on ne peut plus procéder exactement comme avant à cause de la présence de cycles impairs.
-TODO: image illustrant ça.
+
+\center\includegraphics[height=5cm]{exemplefleur.png}
 
 ## Solution : la contraction de fleurs
 
@@ -72,45 +82,86 @@ Conformément au lemme admis dans le polycopié, on peut continuer à chercher u
 appelé fleur, a été fusionné en un seul noeud. C'est l'**algorithme d'Edmonds**.
 
 ### Remarques
-* Nous avons choisi l'ordre du DFS sur les arêtes en conservant l'algorithme décrit dans le sujet.
+* Le pseudo-code qui va suivre utilise un DFS (puisque l'ordre des arêtes à considérer dans le polycopié est arbitraire).
+<!-- * Nous avons choisi l'ordre du DFS sur les arêtes en conservant l'algorithme décrit dans le sujet.
 * Le pseudo-code qui va suivre diffère légèrement du code que nous avons écrit, pour faciliter la compréhension.
-* Comme signalé dans le rapport, nous pensons que la fonction trouveCorolle n'a pas besoin d'être employée.
+* Comme signalé dans le rapport, nous pensons que la fonction trouveCorolle n'a pas besoin d'être employée. -->
 
 ## Blossom Algorithm
+
+### Fonctions principales
+~~~{.python .numberLines}
+  def dfs(G):
+    pour chaque noeud i de G: 
+      si i est non couplé
+       && trouveCheminAugmentant(i, G) != VIDE:
+        return chemin
+  def main(G):
+    tant que changement:
+      chemin=dfs(G)
+      si chemin != VIDE:
+        applique chemin (xor)
+~~~
+
+## Blossom Algorithm (2)
 
 ### Pseudo-code de la fonction trouveCheminAugmentant
 
 \lstinputlisting[language=python]{cheminAugm_p1.pseudo}
 
-## Suite du code
+## Blossom Algorithm (3)
 
 ### Suite de la fonction trouveCheminAugmentant
 
 \lstinputlisting[language=python]{cheminAugm_p2.pseudo}
 
-## Fonction jsaispasquoi
-
-~~~{.c .numberLines}
-lol
-~~~
-
 ## Analyse de la complexité
 
-* On peut augmenter le truc N fois. A chaque fois on fait du N. N^3 (ou N^4 si on reste sur leur idée ici).
+> - Soit V le nombres de noeuds, E le nombre d'arêtes.
+> - A l'issue de l'examen des V noeuds lors du DFS implémenté par trouveCheminAugmentant, on obtient soit un chemin augmentant, soit une contraction,
+soit l'algorithme est terminé.
+> - Il ne peut y avoir que V contractions avant d'aboutir sur un chemin augmentant.
+> - Il faut donc relancer V fois le DFS, chacun s'exécutant en temps E. => V * E
+> - Au total, on ne peut trouver que V chemins augmentants. => V^2 * E
+> - D'où une complexité de O(V^2*E).
 
 # Notre implémentation
 
-## Le parcours global
+## Choix
 
-TODO
+> - Nous avons choisi l'ordre du DFS sur les arêtes en conservant l'algorithme décrit dans le sujet.
+> - La variation principale est que l'on ne recommence pas tout à 0 lorsque l'on "contracte".
+> - Comme signalé dans le rapport, nous pensons que la fonction trouveCorolle n'a pas besoin d'être employée.
+
+## Structures et représentations
+
+> - On parcourt les arêtes deux par deux, de sorte à ce que l'on se trouve toujours sur un noeud **pair**.
+> - Le tableau "père" sert à remonter une arête sur le chemin courant, à partir d'un noeud sur lequel on est arrivés par une arête non-couplée.
+	Il s'agit donc d'un noeud **impair**.
+> - Le tableau repres sert à fusionner les fleurs.
+
+## Détection de cycle impair : 
+
+* Un cycle impair se détecte donc lorsque l'on regarde dans les voisins du noeud courant, si l'on trouve un noeud qui est
+soit la source (tige triviale), soit un noeud dont le couplé a un père
+	* En effet, le couplé est alors impair.
+	* Donc le voisin est pair, mais aussi impair !
 
 ## La contraction de fleurs
 
-TODO
+> - L'astuce est la suivante : marquer tous les noeuds comme ayant le même représentant
+> - Et décréter que chaque noeud de la corolle fait parti d'un chemin qui le relie à la base !
+> - Cela implique de marquer les pères des noeuds "impairs" le long du chemin, de chacun des deux côtés.
+
+. . . 
+
+Ainsi, lorsque l'on va trouver un chemin augmentant, il sera très aisé d'en déduire le chemin sur le graphe "décontracté" !
 
 ## Complexité
 
-La complexité passe ainsi en N^3
+> - La contraction ne relance pas le DFS à partir de 0.
+> - Au sein d'un DFS chaque noeud est marqué au plus une fois.
+> - D'où une complexité de O(V * E) = O(V^3) !
 
 # Aspects techniques et difficultés
 
@@ -149,18 +200,28 @@ Voici quelques points que nous avons été amenés à considérer.
 	* En effet, chaque noeud a un nombre variable d'arêtes. Si le graphe comporte 5N arêtes par exemple, 
 	un noeud peut en posséder N et la plupart des autres 0. Il serait alors dommage de stocker N arêtes par noeud !
 	* Nous avons, à cet effet, réimplémenté la structure de Vecteur étudiée en TD.
+
 	. . .
-		* *Nous l'avions d'ailleurs bugée...*
+
+		* Ce fut d'ailleurs une source de bugs...
+
 . . .
+
+## Autour du langage C (2)
+
 * Nous avons regretté que le C ne permette pas de définir des fonctions dans ses structures.
   Il est désagréable de passer un pointeur sur l'objet à chaque fonction pour simuler un simple "obj->foo()".
+
 . . .
+
 * Le C n'est pas simple à débugger à la différence du langage OCaml. 
-  Nous avons passé du temps à faire des backtrace sur GDB pour trouver le segfault !
+  Nous avons passé du temps à faire des backtrace sur GDB pour trouver un segfault !
 
 ## Autour de la variation de l'algorithme que nous avons introduite
 
-TODO
+* Pour une raison que nous ne comprenons pas bien, il est nécessaire dans notre code de remonter le chemin
+de chacun des deux côtés lors de la détection d'une corolle pour trouver la base.   
+Nous avons passé beaucoup de temps à débugger à cause de ce point.
 
 # Tests et performances
 
@@ -172,63 +233,7 @@ TODO
 
 # Conclusion
 
-Si nous avions eu plus de temps ...
-
-## Des listes numérotées
-
-1. Récupérer le projet
-2. Installer `pandoc`
-3. Installer les dépendances
-    a. `texlive-latex-base`
-    b. `latex-beamer`
-4. Installer un lecteur (`impressive`)
-5. `make run`
-
-## Des citations
-
-Celle-ci est de [*Mitch Resnick*](https://en.wikipedia.org/wiki/Mitchel_Resnick).
-
-> If you learn to read, you can then read to learn.\
-> If you learn to code, you can then code to learn.[^ted]
-
-[^ted]: \tiny<http://www.ted.com/talks/mitch_resnick_let_s_teach_kids_to_code.html>
-
-## Des apparitions
-
-Par étapes :
-
-> - d'abord…
-> - ensuite…
-> - enfin…
-
-## D'autres apparitions
-
-D'abord un paragraphe…
-
-. . .
-
-Puis un autre
-
-*(ça ne marche pas avec pandoc 1.9.4.2, mais ça marche avec 1.12.2.1, vérifiez
-votre version)*
-
-## Mise en forme
-
-| Il y a 2 types de personnes :
-|   ceux qui comprennent la récursivité et
-|   ceux qui ne comprennent pas qu'il y a 2 types de personnes :
-|     ceux qui comprennent la récursivité et
-|     ceux qui ne comprennent pas qu'il y a 2 types de personnes :
-|       ceux qui comprennent la récursivité et
-|       ceux qui…
-
-
-# Spécial \LaTeX /Beamer
-
-## Du spécifique
-
-Certaines choses n'existent pas nativement en *Pandoc Markdown*, il suffit donc
-d'utiliser du \LaTeX.
+## Si nous avions eu plus de temps ...
 
 ## Des blocks spécifiques
 
@@ -240,76 +245,4 @@ Ceci est une alerte
 Ceci est un exemple
 \end{exampleblock}
 
-## Images
 
-Les images sont supportées par *Markdown*, mais on ne peut pas spécifier la
-taille. Il est donc pratique d'utiliser directement \LaTeX.
-
-----
-
-\center\includegraphics[height=6.5cm]{croissance.jpg}
-
-## Des maths
-
-Avec des formules :
-
-$$
-\frac{\pi}{4}=\int_0^1 \sqrt{1-x^2}\mathrm dx
-$$
-
-# À vous
-
-## Essayez
-
-    sudo apt-get install pandoc \
-                         texlive-latex-base \
-                         texlive-lang-french \
-                         latex-beamer \
-                         impressive
-    git clone http://git.rom1v.com/mdbeamer.git
-    cd mdbeamer
-    make run
-
-## Adaptez
-
------------ ----------------------------
-  la source \code{slides.md}
-
-   le thème \code{beamerthemeCustom.sty}
------------ ----------------------------
-
-## Un thème en 2 minutes
-
-Définissez vos 3 couleurs :
-
-\scriptsize
-
-~~~latex
-\definecolor{Color1}{HTML}{25567B}
-\definecolor{Color2}{HTML}{033E6B}
-\definecolor{Color3}{HTML}{66A3D2}
-~~~
-
-\normalsize
-
-Changez les logos :
-
-\scriptsize
-
-~~~latex
-\titlegraphic{\includegraphics[height=1.5cm]{avatar.png}}
-\logo{\includegraphics[height=1.5cm]{gnulogo.png}}
-~~~
-
-# Voir aussi
-
-## Des liens
-
-\scriptsize
-
-pandoc
-  ~ <http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html>
-pour beamer
-  ~ <http://johnmacfarlane.net/pandoc/demo/example9/producing-slide-shows-with-pandoc.html>
-en français
-  ~ <http://enacit1.epfl.ch/markdown-pandoc/>
