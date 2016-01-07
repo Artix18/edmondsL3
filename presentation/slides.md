@@ -1,5 +1,5 @@
 % L'algorithme d'Edmonds
-% Jules Pondard, Joseph, Lucas
+% Jules Pondard, Joseph de Vilmarest, Lucas Flammant
 % 1er Janvier 2016
 
 # Quel est le problème ?
@@ -227,7 +227,9 @@ Nous avons passé beaucoup de temps à débugger à cause de ce point.
 
 ## Un générateur de tests
 
-
+* Nous avons codé un générateur aléatoire de graphes pour pouvoir tester nos fonctions. Chaque arête est présente dans le graphe renvoyé avec probabilité 1/2, ce qui donne un très grand nombre d'arêtes et donc un couplage maximal de N/2 arêtes ou très proche de N/2.
+* Ainsi on vérifie que notre algorithme fonctionne bien car il y a surement de très nombreuses fleurs.
+* Effectivement le couplage maximal a toujours N/2 arêtes.
 
 ## Des sites pour tester
 
@@ -249,6 +251,10 @@ Nous avons testé notre algorithme avec succès sur les sites suivants :
 \center\includegraphics[height=4.5cm]{tempsexec_graphegeneral.png}
 
 # Conclusion
+
+* L'algorithme était complexe et donc source de nombreuses questions quant à l'implémentation.
+* Nous avons ensuite passé du temps à débugger, en passant un moment en C++.
+* Notre algorithme a été vérifié à la main sur de petits graphes, puis nous pensons qu'il fonctionne sur les plus gros car il renvoie N/2 pour chaque graphe.
 
 ## Si nous avions eu plus de temps ...
 
