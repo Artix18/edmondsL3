@@ -8,8 +8,8 @@
 
 * Etant donné un graphe non orienté, on souhaite sélectionner un ensemble d'arêtes tel que :   
 	* Cet ensemble soit le plus grand possible.   
-	* Chaque noeud du graphe apparait au plus dans une arête de l'ensemble.
-  La liste des arêtes d'un tel ensemble est appelée **couplage maximum**.
+	* Chaque noeud du graphe apparait au plus dans une arête de l'ensemble.   
+* La liste des arêtes d'un tel ensemble est appelée **couplage maximum**.
 
 * ***L'objectif est de trouver un tel couplage en temps polynomial.***
 
@@ -191,7 +191,7 @@ Ainsi, lorsque l'on va trouver un chemin augmentant, il sera très aisé d'en d�
 
 ## Autour du langage C
 
-L'un d'entre nous était déjà à l'aise avec le langage C et à sa bibliothèque standard.
+L'un d'entre nous était déjà à l'aise avec le langage C et avec sa bibliothèque standard.
 Voici quelques points que nous avons été amenés à considérer.
 
 . . .
