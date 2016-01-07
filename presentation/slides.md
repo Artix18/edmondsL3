@@ -74,37 +74,105 @@ appelé fleur, a été fusionné en un seul noeud. C'est l'**algorithme d'Edmond
 ### Remarques
 * Nous avons choisi l'ordre du DFS sur les arêtes en conservant l'algorithme décrit dans le sujet.
 * Le pseudo-code qui va suivre diffère légèrement du code que nous avons écrit, pour faciliter la compréhension.
-* Comme signalé dans le rapport, nous pensons que la fonction trouveCorolle devrait être triviale.
+* Comme signalé dans le rapport, nous pensons que la fonction trouveCorolle n'a pas besoin d'être employée.
 
 ## Blossom Algorithm
 
-### Pseudo-code
+### Pseudo-code de la fonction trouveCheminAugmentant
 
 \lstinputlisting[language=python]{cheminAugm_p1.pseudo}
 
 ## Suite du code
 
-### Suite du pseudo-code
+### Suite de la fonction trouveCheminAugmentant
 
 \lstinputlisting[language=python]{cheminAugm_p2.pseudo}
 
-## Du code numéroté
+## Fonction jsaispasquoi
 
-~~~{.c .numberLines startFrom="5"}
-int main(int argc, char *argv[]) {
-  printf("Hello world!\n");
-  return 0;
-}
+~~~{.c .numberLines}
+lol
 ~~~
 
-## Des énumérations
+## Analyse de la complexité
 
-- Apache
-- BSD
-- GPL
-    - GPLv2
-    - GPLv3
-- MIT
+* On peut augmenter le truc N fois. A chaque fois on fait du N. N^3 (ou N^4 si on reste sur leur idée ici).
+
+# Notre implémentation
+
+## Le parcours global
+
+TODO
+
+## La contraction de fleurs
+
+TODO
+
+## Complexité
+
+La complexité passe ainsi en N^3
+
+# Aspects techniques et difficultés
+
+## Autour de la structure générale de l'algorithme
+
+* Nous avons changé à plusieurs reprises d'avis concernant la manière la plus simple de représenter le graphe en mémoire.
+	* Que ce soit pour les arêtes
+	* Ou pour la façon dont on représente un couplage
+
+. . .
+
+* Nous ne savions pas vraiment quel était le format attendu pour permettre à l'utilisateur de tester chaque fonction.
+	* Nous avons choisi de faire un main qui permet en rentrant un certain numéro de sélectionner la fonction à tester
+	* Cela présente l'inconvénient de faire croire à une homogénéité des formats d'entrée.
+
+## Autour de la structure générale de l'algorithme (suite)
+
+* Il était écrit dans le sujet que l'on pouvait obtenir la complexité de V^3, où V est le nombre de noeuds.
+	* Nous avons cherché à obtenir cette complexité
+	* Tout en simplifiant la manière de coder l'algorithme
+	
+	. . .
+	
+	* L'algorithme qui en résulte est pour nous assez satisfaisant : 
+		* Il est plus efficace en termes asymptotiques, O(V^3) au lieu de O(V^4).
+		* Il épargne une vraie fusion des noeuds lors de la contraction des fleurs.
+
+## Autour du langage C
+
+L'un d'entre nous était déjà à l'aise avec le langage C et à sa bibliothèque standard.
+Voici quelques points que nous avons été amenés à considérer.
+
+. . .
+
+* Il est nécessaire de passer par l'allocation dynamique pour représenter un graphe peu dense efficacement.
+	* En effet, chaque noeud a un nombre variable d'arêtes. Si le graphe comporte 5N arêtes par exemple, 
+	un noeud peut en posséder N et la plupart des autres 0. Il serait alors dommage de stocker N arêtes par noeud !
+	* Nous avons, à cet effet, réimplémenté la structure de Vecteur étudiée en TD.
+	. . .
+		* *Nous l'avions d'ailleurs bugée...*
+. . .
+* Nous avons regretté que le C ne permette pas de définir des fonctions dans ses structures.
+  Il est désagréable de passer un pointeur sur l'objet à chaque fonction pour simuler un simple "obj->foo()".
+. . .
+* Le C n'est pas simple à débugger à la différence du langage OCaml. 
+  Nous avons passé du temps à faire des backtrace sur GDB pour trouver le segfault !
+
+## Autour de la variation de l'algorithme que nous avons introduite
+
+TODO
+
+# Tests et performances
+
+## Un générateur de tests
+
+## Des sites pour tester
+
+## De beaux graphiques
+
+# Conclusion
+
+Si nous avions eu plus de temps ...
 
 ## Des listes numérotées
 
