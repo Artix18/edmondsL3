@@ -242,15 +242,11 @@ Nous avons testé notre algorithme avec succès sur les sites suivants :
 
 ## De beaux graphiques (1)
 
-Temps d'exécution dans le cas des graphes bipartis :
-
-\center\includegraphics[height=7.5cm]{tempsexec_graphebiparti.png}
+\center\includegraphics[height=5.5cm]{tempsexec_graphegeneral.png}
 
 ## De beaux graphiques (2)
 
-Temps d'exécution dans le cas des graphes généraux : 
-
-\center\includegraphics[height=7.5cm]{tempsexec_graphegeneral.png}
+\center\includegraphics[height=4.5cm]{tempsexec_graphegeneral.png}
 
 # Conclusion
 
